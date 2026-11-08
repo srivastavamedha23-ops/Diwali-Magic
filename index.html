@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diwali Magic</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 50% 45%, #8d278e, transparent 55%),
+    linear-gradient(135deg, #160b57, #381078, #bd236f);
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+.container {
+  padding: 35px 15px;
+}
+
+h1 {
+  font-size: 30px;
+  color: #ffe3a0;
+  text-shadow: 0 0 15px orange;
+}
+
+.subtitle {
+  margin-top: 12px;
+  font-size: 16px;
+}
+
+.diyas {
+  max-width: 480px;
+  margin: 35px auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 25px 8px;
+  align-items: center;
+  justify-items: center;
+}
+
+.diya {
+  font-size: 43px;
+  filter: brightness(0.45);
+  transition: 0.8s;
+}
+
+.diya.lit {
+  filter: brightness(1.3) drop-shadow(0 0 14px orange);
+  animation: glow 1s infinite alternate;
+}
+
+.diya.center {
+  font-size: 65px;
+}
+
+@keyframes glow {
+  from { transform: scale(1); }
+  to { transform: scale(1.15); }
+}
+
+button {
+  background: linear-gradient(45deg, #ff8c00, #ffd34e);
+  color: #54204d;
+  border: none;
+  padding: 14px 27px;
+  border-radius: 30px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 18px #ff9c00;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+#message {
+  margin: 25px 0;
+  font-size: 22px;
+  color: #ffe5a0;
+  min-height: 30px;
+}
+
+.rangoli {
+  font-size: 38px;
+  margin-top: 20px;
+}
+
+.sparkle {
+  position: fixed;
+  pointer-events: none;
+  font-size: 25px;
+  animation: fly 1.5s ease-out forwards;
+}
+
+@keyframes fly {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-180px) scale(1.8);
+  }
+}
+
+/* Fireworks */
+
+.firework {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  font-size: 22px;
+  pointer-events: none;
+  z-index: 1000;
+  animation: burst 1.3s ease-out forwards;
+}
+
+@keyframes burst {
+  0% {
+    transform: rotate(var(--angle)) translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: rotate(var(--angle)) translateY(var(--distance)) scale(0.2);
+    opacity: 0;
+  }
+}
+
+/* Final Screen */
+
+.final-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+
+  background:
+    radial-gradient(circle, #a52a82, transparent 70%),
+    linear-gradient(135deg, #160b57, #75116f, #e52b76);
+}
+
+.final-screen.show {
+  display: flex;
+  animation: appear 1s ease;
+}
+
+.final-screen h1 {
+  font-size: clamp(38px, 9vw, 65px);
+  color: #ffe5a0;
+  text-shadow: 0 0 25px orange;
+  animation: glow 1s infinite alternate;
+}
+
+.final-screen h2 {
+  color: #ffd980;
+  margin: 15px;
+}
+
+.final-screen p {
+  font-size: 18px;
+  line-height: 1.8;
+  margin: 15px;
+}
+
+.final-screen .flowers {
+  font-size: 55px;
+  margin: 20px;
+}
+
+@keyframes appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>✨ Let's Light Up ✨</h1>
+  <p class="subtitle">Diwali together 🪔</p>
+
+  <div class="diyas">
+    <div class="diya">🪔</div>
+    <div class="diya">🪔</div>
+    <div class="diya">🪔</div>
+    <div class="diya">🪔</div>
+    <div class="diya">🪔</div>
+
+    <div class="diya">🪔</div>
+    <div class="diya">🪔</div>
+    <div class="diya center">🪔</div>
+    <div class="diya">🪔</div>
+    <div class="diya">🪔</div>
+
+    <div class="diya">🪔</div>
+    <div class="diya">🪔</div>
+    <div class="diya">🪔</div>
+    <div class="diya">🪔</div>
+    <div class="diya">🪔</div>
+  </div>
+
+  <button onclick="lightDiyas()">
+    Light the Diyas 🪔
+  </button>
+
+  <br><br>
+
+  <button onclick="showFireworks()">
+    🎆 Celebrate Diwali
+  </button>
+
+  <br><br>
+
+  <button onclick="openFinal()">
+    🎁 Open Final Surprise
+  </button>
+
+  <div id="message"></div>
+
+  <div class="rangoli">🌺 🪷 🌺</div>
+
+</div>
+
+<!-- Final Screen -->
+
+<div class="final-screen" id="finalScreen">
+
+  <div class="flowers">🌺 🪔 🌺</div>
+
+  <h1>HAPPY DIWALI</h1>
+
+  <h2>✨ Navratna of Happiness ✨</h2>
+
+  <p>
+    May your life shine like a diya,<br>
+    May your dreams sparkle like fireworks,<br>
+    And may happiness always find you. ❤️
+  </p>
+
+  <div class="flowers">🪷 🪔 🪷</div>
+
+  <button onclick="closeFinal()">
+    Back to Celebration
+  </button>
+
+</div>
+
+<script>
+
+function lightDiyas() {
+
+  const diyas = document.querySelectorAll(".diya");
+
+  diyas.forEach((diya, index) => {
+    setTimeout(() => {
+      diya.classList.add("lit");
+    }, index * 180);
+  });
+
+  document.getElementById("message").innerHTML =
+    "Our Diwali, aglow ✨";
+
+  for (let i = 0; i < 18; i++) {
+
+    setTimeout(() => {
+
+      const sparkle = document.createElement("div");
+
+      sparkle.className = "sparkle";
+      sparkle.innerHTML = "✨";
+      sparkle.style.left = Math.random() * 90 + "vw";
+      sparkle.style.top = (30 + Math.random() * 50) + "vh";
+
+      document.body.appendChild(sparkle);
+
+      setTimeout(() => sparkle.remove(), 1600);
+
+    }, i * 100);
+  }
+}
+
+
+// Fireworks Function
+
+function showFireworks() {
+
+  const colors = [
+    "#ffcc00",
+    "#ff477e",
+    "#00ffff",
+    "#ffffff",
+    "#baff39",
+    "#ff8c00"
+  ];
+
+  for (let burst = 0; burst < 6; burst++) {
+
+    setTimeout(() => {
+
+      const x = 10 + Math.random() * 80;
+      const y = 15 + Math.random() * 55;
+
+      for (let i = 0; i < 24; i++) {
+
+        const particle = document.createElement("div");
+
+        particle.className = "firework";
+        particle.innerHTML = "✦";
+
+        const angle = i * 15;
+        const distance = 60 + Math.random() * 100;
+
+        particle.style.left = x + "vw";
+        particle.style.top = y + "vh";
+
+        particle.style.setProperty(
+          "--angle", angle + "deg"
+        );
+
+        particle.style.setProperty(
+          "--distance", distance + "px"
+        );
+
+        particle.style.color =
+          colors[Math.floor(Math.random() * colors.length)];
+
+        document.body.appendChild(particle);
+
+        setTimeout(() => particle.remove(), 1400);
+
+      }
+
+    }, burst * 350);
+
+  }
+}
+
+
+// Final Screen
+
+function openFinal() {
+
+  document.getElementById("finalScreen")
+    .classList.add("show");
+
+  showFireworks();
+}
+
+function closeFinal() {
+
+  document.getElementById("finalScreen")
+    .classList.remove("show");
+}
+
+</script>
+
+</body>
+</html>
